@@ -93,27 +93,33 @@ class Post:
 
     def get_date(self):
         return self.date_created
-
+    
     def get_comments(self):
-        comments = []
-        for comment in self.comments:
-            comments.append(comment.get_summary())
-        return comments
-
+        return self.comments
+    
     def get_viewers(self):
-        viewers = []
-        for viewer in self.viewers:
-            viewers.append(viewer.get_username())
-        return viewers
+        return self.viewers
+    
+    def get_summary(self):
+        return f"{self.author} posted {self.content} at {self.time_created} on {self.date_created}"
     
     def add_comment(self, comment):
         self.comments.append(comment)
     
     def add_viewer(self, viewer):
         self.viewers.append(viewer)
+    
+    def print_comments(self):
+        comments = []
+        for comment in self.comments:
+            comments.append(comment.get_summary())
+        print(comments)
 
-    def get_summary(self):
-        return f"{self.author} posted {self.content} at {self.time_created} on {self.date_created}"
+    def print_viewers(self):
+        viewers = []
+        for viewer in self.viewers:
+            viewers.append(viewer.get_username())
+        print(viewers)
 
 
 class User:
@@ -128,31 +134,16 @@ class User:
         return self.username
 
     def get_published_posts(self):
-        published_posts = []
-        for post in self.published_posts:
-            published_posts.append(f"{post.get_content()} at {post.get_time()} on {post.get_date()}")
-        return published_posts
-
+        return self.published_posts
+    
     def get_viewed_posts(self):
-        viewed_posts = []
-        for post in self.viewed_posts:
-            viewed_posts.append(post.get_summary())
-        return viewed_posts
-
+        return self.viewed_posts
+    
     def get_comments(self):
-        comment_contents = []
-        for comment in self.comments:
-            comment_contents.append(f"{comment.get_content()} at {comment.get_time()} on {comment.get_date()}")
-
-        return comment_contents
-
+        return self.comments
+    
     def get_connections(self):
-        connections = []
-        for connection in self.connections:
-            connections.append(
-                f"{connection.get_to_who()}, {connection.get_connection_type()}"
-            )
-        return connections
+        return self.connections
 
     def add_published_post(self, post):
         self.published_posts.append(post)
@@ -165,3 +156,29 @@ class User:
 
     def add_connection(self, connection):
         self.connections.append(connection)
+    
+    def print_published_posts(self):
+        published_posts = []
+        for post in self.published_posts:
+            published_posts.append(f"{post.get_content()} at {post.get_time()} on {post.get_date()}")
+        print(published_posts)
+
+    def print_viewed_posts(self):
+        viewed_posts = []
+        for post in self.viewed_posts:
+            viewed_posts.append(post.get_summary())
+        print(viewed_posts)
+
+    def print_comments(self):
+        comment_contents = []
+        for comment in self.comments:
+            comment_contents.append(f"{comment.get_content()} at {comment.get_time()} on {comment.get_date()}")
+        print(comment_contents)
+
+    def print_connections(self):
+        connections = []
+        for connection in self.connections:
+            connections.append(
+                f"{connection.get_to_who()}, {connection.get_connection_type()}"
+            )
+        print(connections)
