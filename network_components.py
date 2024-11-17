@@ -130,7 +130,7 @@ class User:
     def get_published_posts(self):
         published_posts = []
         for post in self.published_posts:
-            published_posts.append(post.get_content())
+            published_posts.append(f"{post.get_content()} at {post.get_time()} on {post.get_date()}")
         return published_posts
 
     def get_viewed_posts(self):
@@ -142,7 +142,7 @@ class User:
     def get_comments(self):
         comment_contents = []
         for comment in self.comments:
-            comment_contents.append(comment.get_content())
+            comment_contents.append(f"{comment.get_content()} at {comment.get_time()} on {comment.get_date()}")
 
         return comment_contents
 

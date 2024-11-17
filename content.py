@@ -22,8 +22,8 @@ def random_datetime():
     
     random_date = start_date + datetime.timedelta(random.randint(0, num_days))
     
-    hours = random.randint(0, 24)
-    min_sec = random.randint(0, 60)
+    hours = random.randint(0, 23)
+    min_sec = random.randint(0, 59)
     
     random_time = datetime.time(hours, min_sec)
     return datetime.datetime.combine(random_date, random_time)
