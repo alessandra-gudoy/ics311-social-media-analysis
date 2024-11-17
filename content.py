@@ -27,3 +27,6 @@ def random_datetime():
     
     random_time = datetime.time(hours, min_sec)
     return datetime.datetime.combine(random_date, random_time)
+
+def random_content():
+    return random.choice(content)
