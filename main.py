@@ -1,7 +1,13 @@
 from network_components import *
 from network import *
+from content import *
 
 john = User("john", [], [], [], [])
-john.add_comment(Comment(john, "Hello world!", "12:00", "11/17/2024"))
+alice = User("alice", [], [], [], [])
+bob = User("bob", [], [], [], [])
+peter = User("peter", [], [], [], [])
+sarah = User("sarah", [], [], [], [])
 
-print(john.get_comments())
+network = Network([john, alice, bob, peter, sarah])
+
+network.print_users()

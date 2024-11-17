@@ -73,7 +73,7 @@ class Comment:
 
 
 class Post:
-    def __init__(self, user, content, time_created, date_created, comments, viewers):
+    def __init__(self, user, content, time_created, date_created, comments=[], viewers=[]):
         self.user = user
         self.author = user.get_username()
         self.content = content
@@ -105,13 +105,19 @@ class Post:
         for viewer in self.viewers:
             viewers.append(viewer.get_username())
         return viewers
+    
+    def add_comment(self, comment):
+        self.comments.append(comment)
+    
+    def add_viewer(self, viewer):
+        self.viewers.append(viewer)
 
     def get_summary(self):
         return f"{self.author} posted {self.content} at {self.time_created} on {self.date_created}"
 
 
 class User:
-    def __init__(self, username, published_posts, viewed_posts, comments, connections):
+    def __init__(self, username, published_posts=[], viewed_posts=[], comments=[], connections=[]):
         self.username = username
         self.published_posts = published_posts
         self.viewed_posts = viewed_posts
