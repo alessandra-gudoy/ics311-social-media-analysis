@@ -12,7 +12,7 @@ class Network:
     
     def get_user_info(self, user):
         if user in self.users:
-            return (f"{user.get_username()} has {len(user.get_published_posts())} posts and {len(user.get_comments())} comments")
+            return (f"{user.get_username()} has {len(user.get_published_posts())} posts, {len(user.get_comments())} comments, viewed {len(user.get_viewed_posts())} posts, and has {len(user.get_connections())} connections.")
     
     def print_users(self):
         for user in self.users:

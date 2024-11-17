@@ -17,18 +17,23 @@ content = [
 ]
 
 
-def random_datetime():
-    start_date = datetime.datetime(2024, 1, 1)
-    end_date = datetime.datetime(2024, 11, 17)
+def random_date():
+    start_date = datetime.date(2024, 1, 1)
+    end_date = datetime.date(2024, 11, 17)
     num_days = (end_date - start_date).days
 
     random_date = start_date + datetime.timedelta(random.randint(0, num_days))
 
+    return random_date
+
+
+def random_time():
     hours = random.randint(0, 23)
     min_sec = random.randint(0, 59)
 
     random_time = datetime.time(hours, min_sec)
-    return datetime.datetime.combine(random_date, random_time)
+
+    return random_time
 
 
 def random_content():
@@ -36,18 +41,12 @@ def random_content():
 
 
 def generate_comment(user):
-    return Comment(
-        user, random_content(), random_datetime().time(), random_datetime().date()
-    )
+    return Comment(user, random_content(), random_time(), random_date())
 
 
 def generate_post(user):
-    return Post(
-        user, random_content(), random_datetime().time(), random_datetime().date()
-    )
+    return Post(user, random_content(), random_time(), random_date(), [], [])
 
 
 def generate_view(user, post):
-    return View(
-        user, random_datetime().time(), random_datetime().date(), post
-    )
+    return View(user, random_time(), random_date(), post)

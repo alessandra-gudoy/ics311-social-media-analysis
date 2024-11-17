@@ -33,7 +33,7 @@ class View:
         self.post_viewed = post_viewed
 
     def get_who_viewed(self):
-        return self.who_viewed.get_username()
+        return self.who_viewed
 
     def get_time(self):
         return self.time_viewed
@@ -69,11 +69,11 @@ class Comment:
         return self.date_created
 
     def get_summary(self):
-        return f"{self.author} said: {self.content} at {self.time_created} on {self.date_created}"
+        return f"{self.author} said: \"{self.content}\" at {self.time_created} on {self.date_created}"
 
 
 class Post:
-    def __init__(self, user, content, time_created, date_created, comments=[], viewers=[]):
+    def __init__(self, user, content, time_created, date_created, comments, viewers):
         self.user = user
         self.author = user.get_username()
         self.content = content
@@ -101,7 +101,7 @@ class Post:
         return self.viewers
     
     def get_summary(self):
-        return f"{self.author} posted {self.content} at {self.time_created} on {self.date_created}"
+        return f"{self.author} posted \"{self.content}\" at {self.time_created} on {self.date_created}"
     
     def add_comment(self, comment):
         self.comments.append(comment)
@@ -118,12 +118,12 @@ class Post:
     def print_viewers(self):
         viewers = []
         for viewer in self.viewers:
-            viewers.append(viewer.get_username())
+            viewers.append(viewer.get_who_viewed())
         print(viewers)
 
 
 class User:
-    def __init__(self, username, published_posts=[], viewed_posts=[], comments=[], connections=[]):
+    def __init__(self, username, published_posts, viewed_posts, comments, connections):
         self.username = username
         self.published_posts = published_posts
         self.viewed_posts = viewed_posts
