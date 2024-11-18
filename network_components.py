@@ -1,4 +1,5 @@
 from enum import Enum
+import pandas as pd
 
 class Gender(Enum):
     MALE = "male"
@@ -132,6 +133,8 @@ class Post:
 
 
 class User:
+    all_posts = pd.DataFrame(columns=["age", "gender", "region", "content"])
+    
     def __init__(self, username, age, gender, region, published_posts, viewed_posts, comments, connections):
         self.username = username
         self.age = age
@@ -141,6 +144,10 @@ class User:
         self.viewed_posts = viewed_posts
         self.comments = comments
         self.connections = connections
+        self.online = False
+
+    def set_online(self):
+        self.online = True
 
     def get_username(self):
         return self.username
@@ -168,6 +175,8 @@ class User:
 
     def add_published_post(self, post):
         self.published_posts.append(post)
+        if self.online:
+            User.add_row_to_all_posts(self, post)
 
     def add_viewed_post(self, post):
         self.viewed_posts.append(post)
@@ -177,6 +186,10 @@ class User:
 
     def add_connection(self, connection):
         self.connections.append(connection)
+    
+    def add_row_to_all_posts(self, post):
+        row = { "age":post.user.age, "gender":post.user.gender.value, "region":post.user.region.value, "content":post.content }
+        User.all_posts = User.all_posts._append(row, ignore_index=True)
     
     def print_published_posts(self):
         published_posts = []

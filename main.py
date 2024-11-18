@@ -1,6 +1,7 @@
 from network_components import *
 from network import *
 from generate_content import *
+import pandas as pd
 
 john = User("john", 24, Gender.MALE, Region.NORTH, [], [], [], [])
 alice = User("alice", 26, Gender.FEMALE, Region.EAST, [], [], [], [])
@@ -91,4 +92,6 @@ posts["john"][0].add_comment(comments["sarah"][0])
 posts["alice"][1].add_comment(comments["sarah"][1])
 
 
-network.print_users()
+# network.print_users()
+
+print(network.users[0].all_posts)
