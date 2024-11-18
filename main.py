@@ -2,11 +2,11 @@ from network_components import *
 from network import *
 from generate_content import *
 
-john = User("john", [], [], [], [])
-alice = User("alice", [], [], [], [])
-bob = User("bob", [], [], [], [])
-peter = User("peter", [], [], [], [])
-sarah = User("sarah", [], [], [], [])
+john = User("john", 24, Gender.MALE, Region.NORTH, [], [], [], [])
+alice = User("alice", 26, Gender.FEMALE, Region.EAST, [], [], [], [])
+bob = User("bob", 24, Gender.MALE, Region.SOUTH, [], [], [], [])
+peter = User("peter", 36, Gender.MALE, Region.NORTH, [], [], [], [])
+sarah = User("sarah", 45, Gender.FEMALE, Region.WEST, [], [], [], [])
 
 # connections
 john.add_connection(Connection(john, alice, ConnectionType.FRIEND))

@@ -1,5 +1,14 @@
 from enum import Enum
 
+class Gender(Enum):
+    MALE = "male"
+    FEMALE = "female"
+
+class Region(Enum):
+    NORTH = "north"
+    SOUTH = "south"
+    EAST = "east"
+    WEST = "west"
 
 class ConnectionType(Enum):
     FOLLOWER = "follower"
@@ -123,8 +132,11 @@ class Post:
 
 
 class User:
-    def __init__(self, username, published_posts, viewed_posts, comments, connections):
+    def __init__(self, username, age, gender, region, published_posts, viewed_posts, comments, connections):
         self.username = username
+        self.age = age
+        self.gender = gender
+        self.region = region
         self.published_posts = published_posts
         self.viewed_posts = viewed_posts
         self.comments = comments
@@ -132,6 +144,15 @@ class User:
 
     def get_username(self):
         return self.username
+    
+    def get_age(self):
+        return self.age
+    
+    def get_gender(self):
+        return self.gender
+    
+    def get_region(self):
+        return self.region
 
     def get_published_posts(self):
         return self.published_posts
