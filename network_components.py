@@ -1,6 +1,10 @@
 from enum import Enum
 import pandas as pd
 
+from attribute_filter import AttributeFilter
+from inverted_index import InvertedIndex
+from max_heap import MaxHeap
+
 class Gender(Enum):
     MALE = "male"
     FEMALE = "female"
@@ -83,7 +87,7 @@ class Comment:
 
 
 class Post:
-    def __init__(self, user, content, time_created, date_created, comments, viewers):
+    def __init__(self, user, content, time_created, date_created, comments, viewers, engagement_score):
         self.user = user
         self.author = user.get_username()
         self.content = content
@@ -91,6 +95,7 @@ class Post:
         self.date_created = date_created
         self.comments = comments
         self.viewers = viewers
+        self.engagement_score = engagement_score
 
     def get_author(self):
         return self.author
@@ -110,6 +115,9 @@ class Post:
     def get_viewers(self):
         return self.viewers
     
+    def get_engagement_score(self):
+        return self.engagement_score
+    
     def get_summary(self):
         return f"{self.author} posted \"{self.content}\" at {self.time_created} on {self.date_created}"
     
@@ -119,6 +127,9 @@ class Post:
     def add_viewer(self, viewer):
         self.viewers.append(viewer)
     
+    def add_engagement(self, likes, shares, comments):
+        self.engagement_score = likes + shares + comments
+
     def print_comments(self):
         comments = []
         for comment in self.comments:
@@ -145,6 +156,9 @@ class User:
         self.comments = comments
         self.connections = connections
         self.online = False
+        self.trending_queue = MaxHeap()
+        self.inverted_index = InvertedIndex()
+        self.attribute_filter = AttributeFilter()
 
     def set_online(self):
         self.online = True
@@ -177,6 +191,11 @@ class User:
         self.published_posts.append(post)
         if self.online:
             User.add_row_to_all_posts(self, post)
+        self.trending_queue.insert(post) 
+
+    def add_engagement_to_post(self, post, likes, shares, comments):
+        post.add_engagement(likes, shares, comments)
+        self.trending_queue.insert(post)
 
     def add_viewed_post(self, post):
         self.viewed_posts.append(post)
@@ -216,3 +235,26 @@ class User:
                 f"{connection.get_to_who()}, {connection.get_connection_type()}"
             )
         print(connections)
+
+    def print_trending_posts(self):
+        trending_post = self.trending_queue.peek()
+        if trending_post:
+            print(f"Trending Post: {trending_post.get_summary()} by {trending_post.user.get_username()}")
+        else:
+            print("No trending posts available.")
+
+    def print_keyword_filtered_posts(self, keyword):
+        posts = self.inverted_index.search(keyword)
+        for post in posts:
+            print(post.get_summary())
+    
+    def print_filtered_posts_by_attribute(self, attribute, value):
+        if attribute == "gender":
+            posts = self.attribute_filter.filter_by_gender(value)
+        elif attribute == "region":
+            posts = self.attribute_filter.filter_by_region(value)
+        elif attribute == "age":
+            posts = self.attribute_filter.filter_by_age(value)
+        
+        for post in posts:
+            print(post.get_summary())

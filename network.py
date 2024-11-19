@@ -35,4 +35,3 @@ class Network:
     
     # Credit: Word Cloud Implementation adapted from https://www.geeksforgeeks.org/generating-word-cloud-python/
     # def create_dataframe(self):
-        
