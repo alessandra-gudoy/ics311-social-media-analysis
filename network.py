@@ -1,11 +1,14 @@
 from network_components import *
 
-import numpy as np
 import pandas as pd
-from os import path
-from PIL import Image
-# run pip install wordcloud
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+from wordcloud import WordCloud, STOPWORDS
+import matplotlib.pyplot as plt
+
+# may need to run in terminal
+# pip install matplotlib
+# pip install pandas
+# pip install wordcloud
+
 
 class Network:
     def __init__(self, users):
@@ -34,5 +37,31 @@ class Network:
             print(self.get_user_info(user))
     
     # Credit: Word Cloud Implementation adapted from https://www.geeksforgeeks.org/generating-word-cloud-python/
-    # def create_dataframe(self):
+    """
+        keywords = list of words that should be in content of post
+        
+    """
+    def create_wordcloud(self, keywords=[], gender=None, age=None, region=None):
+        filtered_data = User.all_posts.copy()
+        
+        if age != None:
+            filtered_data =  filtered_data[(filtered_data['age'] == age)]
+        
+        if gender != None:
+            filtered_data =  filtered_data[(filtered_data['gender'] == gender)]
+        
+        if region != None:
+            filtered_data =  filtered_data[(filtered_data['region'] == region)]
+        
+        if keywords != []:
+            filtered_data = filtered_data[filtered_data['content'].str.contains('|'.join(keywords))]
+        
+        text = " ".join(filtered_data['content'])
+        stopwords = set(STOPWORDS)
+        wordcloud = WordCloud(stopwords=stopwords, background_color="white").generate(text)
+
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis("off")
+        plt.show()
         

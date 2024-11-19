@@ -4,10 +4,10 @@ import datetime
 import random
 
 content = [
-    "Peter Piper picked a peck of pickled peppers.",
-    "She sells seashells by the seashore.",
-    "How much wood would a woodchuck chuck if a woodchuck could chuck wood?",
-    "I scream, you scream, we all scream for ice cream.",
+    " hello Peter Piper picked a peck of pickled peppers.",
+    " hello She sells seashells by the seashore.",
+    " hello How much wood would a woodchuck chuck if a woodchuck could chuck wood?",
+    " hello I scream, you scream, we all scream for ice cream.",
     "Twinkle, twinkle, little star, how I wonder what you are.",
     "Mary had a little lamb, its fleece was white as snow.",
     "Itsy bitsy spider climbed up the water spout.",
