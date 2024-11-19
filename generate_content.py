@@ -1,6 +1,5 @@
 from randomize_content import *
 
-
 def make_comments(user1, user2, user3, user4, user5):
     user1_comm1 = generate_comment(user1)
     user1_comm2 = generate_comment(user1)
@@ -41,5 +40,3 @@ def make_posts(user1, user2, user3, user4, user5):
 
     user5_post1 = generate_post(user5)
     user5.add_published_post(user5_post1)
-
-
