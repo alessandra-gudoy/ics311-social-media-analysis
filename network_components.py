@@ -87,7 +87,7 @@ class Comment:
 
 
 class Post:
-    def __init__(self, user, content, time_created, date_created, comments, viewers, engagement_score):
+    def __init__(self, user, content, time_created, date_created, comments, viewers, engagement_score = 0):
         self.user = user
         self.author = user.get_username()
         self.content = content

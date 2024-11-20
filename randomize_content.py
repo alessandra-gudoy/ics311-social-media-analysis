@@ -45,7 +45,7 @@ def generate_comment(user):
 
 
 def generate_post(user):
-    return Post(user, random_content(), random_time(), random_date(), [], [])
+    return Post(user, random_content(), random_time(), random_date(), [], [], [])
 
 
 def generate_view(user, post):
