@@ -49,6 +49,7 @@ comments = {  # length
     "peter": peter.get_comments(),  # 1
     "sarah": sarah.get_comments()  # 2
 }
+
 posts = {  # length
     "john": john.get_published_posts(),  # 1
     "alice": alice.get_published_posts(),  # 3
@@ -100,3 +101,20 @@ posts["alice"][1].add_comment(comments["sarah"][1])
 
 # print(network.users[0].all_posts)
 network.create_wordcloud(["hello", "lamb"])
+
+# # Check user data
+# print(f"John's connections: {[conn.get_to_who() for conn in john.get_connections()]}")
+# print(f"John's posts: {[post.get_content() for post in john.get_published_posts()]}")
+# print(f"John's comments: {[comment.get_content() for comment in john.get_comments()]}")
+
+# # Check the views for a specific post
+# print(f"Views on John's first post: {[viewer.get_who_viewed().get_username() for viewer in posts['john'][0].get_viewers()]}")
+
+# # Check comments on a specific post
+# print(f"Comments on Alice's first post: {[comment.get_summary() for comment in posts['alice'][0].get_comments()]}")
+
+# # Print the trending post (ensure this function exists in the User or Network class)
+# john.print_trending_posts()
+
+# # Print posts filtered by gender (make sure this method exists in the User class)
+# john.print_filtered_posts_by_attribute("gender", Gender.MALE)
