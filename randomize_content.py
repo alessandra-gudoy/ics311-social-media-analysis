@@ -45,7 +45,8 @@ def generate_comment(user):
 
 
 def generate_post(user):
-    return Post(user, random_content(), random_time(), random_date(), [], [])
+    engagement_score = random.randint(1, 100)
+    return Post(user, random_content(), random_time(), random_date(), [], [], engagement_score)
 
 
 def generate_view(user, post):
