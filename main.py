@@ -5,6 +5,8 @@ import pandas as pd
 from max_heap import MaxHeap
 from inverted_index import InvertedIndex
 from attribute_filter import AttributeFilter
+from intposts_visualization import create_graph, draw_graph
+from intposts_analysis import find_important_posts
 
 john = User("john", 24, Gender.MALE, Region.NORTH, [], [], [], [])
 alice = User("alice", 26, Gender.FEMALE, Region.EAST, [], [], [], [])
@@ -47,7 +49,6 @@ comments = {  # length
     "peter": peter.get_comments(),  # 1
     "sarah": sarah.get_comments()  # 2
 }
-
 posts = {  # length
     "john": john.get_published_posts(),  # 1
     "alice": alice.get_published_posts(),  # 3
@@ -95,8 +96,12 @@ posts["alice"][1].add_comment(comments["peter"][0])
 posts["john"][0].add_comment(comments["sarah"][0])
 posts["alice"][1].add_comment(comments["sarah"][1])
 
-# network.print_users()
+# Generate and visualize the network graph
+G = create_graph(network)
+important_posts = find_important_posts(G, importance_criteria='comments', threshold=1)
+draw_graph(G, important_posts)
 
+# network.print_users()
 # print(network.users[0].all_posts)
 network.create_wordcloud(["hello", "lamb"])
 
