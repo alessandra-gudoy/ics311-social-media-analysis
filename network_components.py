@@ -97,6 +97,9 @@ class Post:
         self.viewers = viewers
         self.engagement_score = engagement_score
 
+    def __lt__(self, other):
+        return self.engagement_score < other.engagement_score
+
     def get_author(self):
         return self.author
 
@@ -108,25 +111,25 @@ class Post:
 
     def get_date(self):
         return self.date_created
-    
+
     def get_comments(self):
         return self.comments
-    
+
     def get_viewers(self):
         return self.viewers
-    
+
     def get_engagement_score(self):
         return self.engagement_score
-    
+
     def get_summary(self):
         return f"{self.author} posted \"{self.content}\" at {self.time_created} on {self.date_created}"
-    
+
     def add_comment(self, comment):
         self.comments.append(comment)
-    
+
     def add_viewer(self, viewer):
         self.viewers.append(viewer)
-    
+
     def add_engagement(self, likes, shares, comments):
         self.engagement_score = likes + shares + comments
 
@@ -145,7 +148,7 @@ class Post:
 
 class User:
     all_posts = pd.DataFrame(columns=["age", "gender", "region", "content"])
-    
+
     def __init__(self, username, age, gender, region, published_posts, viewed_posts, comments, connections):
         self.username = username
         self.age = age
@@ -165,25 +168,25 @@ class User:
 
     def get_username(self):
         return self.username
-    
+
     def get_age(self):
         return self.age
-    
+
     def get_gender(self):
         return self.gender
-    
+
     def get_region(self):
         return self.region
 
     def get_published_posts(self):
         return self.published_posts
-    
+
     def get_viewed_posts(self):
         return self.viewed_posts
-    
+
     def get_comments(self):
         return self.comments
-    
+
     def get_connections(self):
         return self.connections
 
@@ -205,11 +208,11 @@ class User:
 
     def add_connection(self, connection):
         self.connections.append(connection)
-    
+
     def add_row_to_all_posts(self, post):
         row = { "age":post.user.age, "gender":post.user.gender.value, "region":post.user.region.value, "content":post.content }
         User.all_posts = User.all_posts._append(row, ignore_index=True)
-    
+
     def print_published_posts(self):
         published_posts = []
         for post in self.published_posts:
@@ -237,7 +240,7 @@ class User:
         print(connections)
 
     def print_trending_posts(self):
-        trending_post = self.trending_queue.peek()
+        trending_post = self.trending_queue.extract_max()
         if trending_post:
             print(f"Trending Post: {trending_post.get_summary()} by {trending_post.user.get_username()}")
         else:
@@ -247,7 +250,7 @@ class User:
         posts = self.inverted_index.search(keyword)
         for post in posts:
             print(post.get_summary())
-    
+
     def print_filtered_posts_by_attribute(self, attribute, value):
         if attribute == "gender":
             posts = self.attribute_filter.filter_by_gender(value)
@@ -255,6 +258,6 @@ class User:
             posts = self.attribute_filter.filter_by_region(value)
         elif attribute == "age":
             posts = self.attribute_filter.filter_by_age(value)
-        
+
         for post in posts:
             print(post.get_summary())
