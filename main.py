@@ -5,8 +5,8 @@ import pandas as pd
 from max_heap import MaxHeap
 from inverted_index import InvertedIndex
 from attribute_filter import AttributeFilter
-from post import Post
-from user import User
+# from post import Post
+# from user import User
 
 john = User("john", 24, Gender.MALE, Region.NORTH, [], [], [], [])
 alice = User("alice", 26, Gender.FEMALE, Region.EAST, [], [], [], [])
